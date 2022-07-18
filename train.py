@@ -111,6 +111,7 @@ def train_net(net,
                 pbar.set_postfix(**{'loss (batch)': loss.item()})
 
                 # Evaluation round
+                net.eval()
                 division_step = (n_train // (10 * batch_size))
                 if division_step > 0:
                     if global_step % division_step == 0:
@@ -136,6 +137,7 @@ def train_net(net,
                             'epoch': epoch,
                             **histograms
                         })
+                net.train()
 
         if save_checkpoint:
             Path(dir_checkpoint).mkdir(parents=True, exist_ok=True)
